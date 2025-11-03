@@ -1,6 +1,10 @@
 import React from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 
 const Community = () => {
+  const { language } = useLanguage()
+  
   const features = [
     {
       icon: (
@@ -8,8 +12,8 @@ const Community = () => {
           <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
         </svg>
       ),
-      title: "Discussions",
-      description: "Access a community of builders and tinkers who are coding with AI and discovering a whole new way to ship products."
+      titleKey: "community.discussionsTitle",
+      descKey: "community.discussionsDesc"
     },
     {
       icon: (
@@ -20,8 +24,8 @@ const Community = () => {
           <path d="M3 10h18"></path>
         </svg>
       ),
-      title: "Live Sessions",
-      description: "Attend coding workshops and build-a-long sessions with some of the leading developers and product builders."
+      titleKey: "community.liveSessionsTitle",
+      descKey: "community.liveSessionsDesc"
     },
     {
       icon: (
@@ -31,8 +35,8 @@ const Community = () => {
           <path d="M12 17h.01"></path>
         </svg>
       ),
-      title: "Support",
-      description: "Communities are one of the best schools that you will attend. Talk about your roadblocks and help others with theirs."
+      titleKey: "community.supportTitle",
+      descKey: "community.supportDesc"
     }
   ]
 
@@ -41,14 +45,14 @@ const Community = () => {
       <div className="mx-auto max-w-[1200px]">
         <div className="flex justify-center mb-3 px-4">
           <div className="inline-flex items-center rounded-full text-xs font-semibold transition-colors text-foreground px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-            Community Building
+            {t(language, "community.badge")}
           </div>
         </div>
         <h2 className="max-w-[640px] mx-auto mb-6 text-4xl lg:text-6xl font-semibold tracking-tight text-center text-gray-900 dark:text-white px-4">
-          Join the journey with others
+          {t(language, "community.title")}
         </h2>
         <p className="text-[20px] text-[#0f0f0f] dark:text-gray-300 mb-16 max-w-[576px] mx-auto text-center px-4">
-          Build connections with other students who are also learning how to develop applications with AI.
+          {t(language, "community.subtitle")}
         </p>
         
         <div className="grid gap-8 px-4">
@@ -63,10 +67,10 @@ const Community = () => {
                   </div>
                   <div className="p-4 sm:p-0">
                     <h3 className="text-2xl font-medium mb-2 text-gray-900 dark:text-white">
-                      {feature.title}
+                      {t(language, feature.titleKey)}
                     </h3>
                     <p className="text-base text-gray-700 dark:text-gray-300">
-                      {feature.description}
+                      {t(language, feature.descKey)}
                     </p>
                   </div>
                 </div>

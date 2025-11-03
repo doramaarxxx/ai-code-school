@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 import { getCourses } from '../lib/supabase'
 
 const Courses = () => {
+  const { language } = useLanguage()
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const data = await getCourses()
+        const data = await getCourses(language)
         setCourses(data)
       } catch (error) {
         console.error('Error loading courses:', error)
@@ -39,14 +42,14 @@ const Courses = () => {
       }
     }
     fetchCourses()
-  }, [])
+  }, [language])
 
   if (loading) {
     return (
       <section className="pt-24 pb-32 bg-background dark:bg-background border-b dark:border-gray-800">
         <div className="container max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-gray-600 dark:text-gray-400">Loading courses...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t(language, 'common.loading')}</p>
           </div>
         </div>
       </section>
@@ -63,14 +66,14 @@ const Courses = () => {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
               </span>
-              Featured Courses
+              {t(language, 'courses.badge')}
             </div>
           </div>
           <h2 className="max-w-[640px] mx-auto mb-6 text-4xl lg:text-6xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            Comprehensive courses for all levels
+            {t(language, 'courses.title')}
           </h2>
           <p className="text-[20px] text-[#0f0f0f] dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            Expert-led, project-based learning to build real-world skills.
+            {t(language, 'courses.subtitle')}
           </p>
         </div>
 

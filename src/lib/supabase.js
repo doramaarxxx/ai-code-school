@@ -14,8 +14,16 @@ if (supabaseAnonKey) {
   }
 }
 
+// Helper function to get localized field
+const getLocalizedField = (item, field, language) => {
+  if (language === 'ko' && item[`${field}_ko`]) {
+    return item[`${field}_ko`]
+  }
+  return item[field]
+}
+
 // 예제: 코스 데이터 가져오기
-export const getCourses = async () => {
+export const getCourses = async (language = 'en') => {
   if (!supabase) {
     console.warn('Supabase not initialized. Returning empty array.')
     return []
@@ -31,11 +39,18 @@ export const getCourses = async () => {
     return []
   }
   
-  return data || []
+  // Return localized data
+  return (data || []).map(course => ({
+    ...course,
+    title: getLocalizedField(course, 'title', language),
+    description: getLocalizedField(course, 'description', language),
+    short_description: getLocalizedField(course, 'short_description', language),
+    about: getLocalizedField(course, 'about', language),
+  }))
 }
 
 // 슬러그로 특정 코스 가져오기 (섹션, 레슨, 도구 포함)
-export const getCourseBySlug = async (slug) => {
+export const getCourseBySlug = async (slug, language = 'en') => {
   if (!supabase) {
     console.warn('Supabase not initialized. Returning null.')
     return null
@@ -65,11 +80,19 @@ export const getCourseBySlug = async (slug) => {
     .eq('course_id', course.id)
     .order('order_index', { ascending: true })
   
-  // 각 섹션의 레슨들을 order_index로 정렬
+  // 각 섹션의 레슨들을 order_index로 정렬 및 다국어 처리
   if (sections) {
     sections.forEach(section => {
+      // Localize section title
+      section.title = getLocalizedField(section, 'title', language)
+      
       if (section.course_lessons) {
         section.course_lessons.sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+        // Localize lesson titles
+        section.course_lessons = section.course_lessons.map(lesson => ({
+          ...lesson,
+          title: getLocalizedField(lesson, 'title', language)
+        }))
       }
     })
   }
@@ -90,16 +113,27 @@ export const getCourseBySlug = async (slug) => {
     console.error('Error fetching tools:', toolsError)
   }
 
-  // 데이터 정리
+  // Localize tools
+  const localizedTools = (tools || []).map(t => t.tools).filter(Boolean).map(tool => ({
+    ...tool,
+    name: getLocalizedField(tool, 'name', language),
+    description: getLocalizedField(tool, 'description', language)
+  }))
+
+  // 데이터 정리 및 다국어 처리
   return {
     ...course,
+    title: getLocalizedField(course, 'title', language),
+    description: getLocalizedField(course, 'description', language),
+    short_description: getLocalizedField(course, 'short_description', language),
+    about: getLocalizedField(course, 'about', language),
     sections: sections || [],
-    tools: (tools || []).map(t => t.tools).filter(Boolean)
+    tools: localizedTools
   }
 }
 
 // 모든 블로그 포스트 가져오기
-export const getAllBlogs = async (limit = 10) => {
+export const getAllBlogs = async (limit = 10, language = 'en') => {
   if (!supabase) {
     console.warn('Supabase not initialized. Returning empty array.')
     return []
@@ -107,7 +141,7 @@ export const getAllBlogs = async (limit = 10) => {
   
   const { data, error } = await supabase
     .from('blogs')
-    .select('id, title, slug, excerpt, cover_image_url, author_name, author_title, published_date')
+    .select('*')
     .eq('is_published', true)
     .order('published_date', { ascending: false })
     .limit(limit)
@@ -117,11 +151,17 @@ export const getAllBlogs = async (limit = 10) => {
     return []
   }
   
-  return data || []
+  // Return localized data
+  return (data || []).map(blog => ({
+    ...blog,
+    title: getLocalizedField(blog, 'title', language),
+    excerpt: getLocalizedField(blog, 'excerpt', language),
+    content: getLocalizedField(blog, 'content', language),
+  }))
 }
 
 // 슬러그로 특정 블로그 포스트 가져오기
-export const getBlogBySlug = async (slug) => {
+export const getBlogBySlug = async (slug, language = 'en') => {
   if (!supabase) {
     console.warn('Supabase not initialized. Returning null.')
     return null
@@ -139,7 +179,13 @@ export const getBlogBySlug = async (slug) => {
     return null
   }
   
-  return data
+  // Return localized data
+  return {
+    ...data,
+    title: getLocalizedField(data, 'title', language),
+    excerpt: getLocalizedField(data, 'excerpt', language),
+    content: getLocalizedField(data, 'content', language),
+  }
 }
 
 // 예제: 테스티모니얼 가져오기

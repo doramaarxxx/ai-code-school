@@ -1,6 +1,9 @@
 import React from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 
 const Testimonials = () => {
+  const { language } = useLanguage()
   const featuredTestimonial = {
     name: "Michael Wade",
     role: "Product Engineer",
@@ -53,14 +56,14 @@ const Testimonials = () => {
         <div className="text-center mb-16 max-w-[576px] mx-auto">
           <div className="flex justify-center mb-3">
             <div className="inline-flex items-center rounded-full text-xs font-semibold transition-colors text-foreground px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-              Testimonials
+              {t(language, "testimonials.badge")}
             </div>
           </div>
           <h2 className="max-w-[640px] mx-auto mb-6 text-4xl lg:text-6xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            What our students say
+            {t(language, "testimonials.title")}
           </h2>
           <p className="text-[20px] text-[#0f0f0f] dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            Join thousands of satisfied learners building with AI
+            {t(language, "testimonials.subtitle")}
           </p>
         </div>
 

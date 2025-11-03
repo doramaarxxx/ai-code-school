@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 
 const FAQ = () => {
+  const { language } = useLanguage()
   const [openItems, setOpenItems] = useState({})
 
   const faqData = {
@@ -73,14 +76,14 @@ const FAQ = () => {
       <div className="container max-w-3xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="flex justify-center mb-3">
           <div className="inline-flex items-center rounded-full text-xs font-semibold transition-colors text-foreground px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-            Quick Answers
+            {t(language, "faq.badge")}
           </div>
         </div>
         <h2 className="max-w-[640px] mx-auto mb-6 text-4xl lg:text-6xl font-semibold tracking-tight text-gray-900 dark:text-white text-center">
-          Frequently asked questions
+          {t(language, "faq.title")}
         </h2>
         <p className="text-[20px] text-[#0f0f0f] dark:text-gray-300 mb-16 max-w-3xl mx-auto text-center">
-          Here are answers to the most frequent questions
+          {t(language, "faq.subtitle")}
         </p>
 
         {Object.entries(faqData).map(([section, items]) => (

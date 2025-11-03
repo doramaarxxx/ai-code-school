@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 import CoachingModal from './CoachingModal'
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [coachingModalOpen, setCoachingModalOpen] = useState(false)
+  const { language, toggleLanguage } = useLanguage()
 
   const navItems = [
-    { name: 'Courses', href: '/courses' },
-    { name: 'Blogs', href: '/blogs' },
-    { name: 'Coaching', href: '#', onClick: () => setCoachingModalOpen(true) },
-    { name: 'Contact', href: '/contact' },
+    { name: t(language, 'header.courses'), href: '/courses' },
+    { name: t(language, 'header.blogs'), href: '/blogs' },
+    { name: t(language, 'header.coaching'), href: '#', onClick: () => setCoachingModalOpen(true) },
+    { name: t(language, 'header.contact'), href: '/contact' },
   ]
 
   return (
@@ -47,6 +50,30 @@ const Header = () => {
           </nav>
 
           <div className="ml-auto flex items-center space-x-4">
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm font-medium text-gray-900 dark:text-white"
+              aria-label="Toggle language"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span>{language === 'en' ? 'EN' : '한글'}</span>
+            </button>
+
             <button
               className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 w-10 md:hidden hover:bg-accent hover:text-accent-foreground"
               type="button"
@@ -70,10 +97,6 @@ const Header = () => {
               </svg>
               <span className="sr-only">Toggle menu</span>
             </button>
-
-            <div className="hidden md:flex items-center space-x-4">
-              {/* Community button removed */}
-            </div>
           </div>
         </div>
       </div>
@@ -104,6 +127,29 @@ const Header = () => {
                 </Link>
               )
             ))}
+            
+            {/* Language Toggle for Mobile */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2 text-base font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span>{language === 'en' ? 'English' : '한국어'}</span>
+            </button>
           </div>
         </div>
       )}

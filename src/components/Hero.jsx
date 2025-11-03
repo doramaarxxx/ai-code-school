@@ -1,7 +1,11 @@
 import React from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 import FluidGradient from './FluidGradient'
 
 const Hero = () => {
+  const { language } = useLanguage()
+  
   return (
     <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -35,16 +39,16 @@ const Hero = () => {
                     <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  <span className="text-xs text-white font-medium">Community learning</span>
+                  <span className="text-xs text-white font-medium">{t(language, 'hero.badge')}</span>
                 </div>
               </div>
               
               <h1 className="text-[3.75rem] font-medium tracking-tight text-white md:text-[5rem] lg:text-[7rem] leading-[1.02] text-center sm:text-left max-w-[1000px] w-full">
-                Learn the future of coding, with ai
+                {t(language, 'hero.title')}
               </h1>
               
               <p className="text-xl text-white/90 text-center sm:text-left mb-6 max-w-[600px] mx-auto sm:mx-0">
-                Courses, guides, workshops and a thriving community to help you on your AI coding journey
+                {t(language, 'hero.subtitle')}
               </p>
               
               <div className="flex w-full justify-center sm:justify-start gap-5">
@@ -56,7 +60,7 @@ const Hero = () => {
                   <button
                     className="group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-white/10 text-white bg-black/50 backdrop-blur-sm rounded-full transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px w-full sm:w-auto px-8 py-3 text-base font-medium hover:bg-black/70"
                   >
-                    <span className="text-white relative z-10">Explore Courses</span>
+                    <span className="text-white relative z-10">{t(language, 'hero.cta')}</span>
                   </button>
                 </a>
               </div>

@@ -1,6 +1,9 @@
 import React from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 
 const Tools = () => {
+  const { language } = useLanguage()
   const tools = [
     { name: "Next.js", logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Nextjs-YSLQe2KnKsURAmR6tm6WtbuK5O4pk3.png" },
     { name: "Supabase", logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Supabase-iweDM2c5DZ4FbvtC6ulSm3auYfPuKl.png" },
@@ -19,15 +22,15 @@ const Tools = () => {
           <div className="max-w-[576px] mx-auto">
             <div className="flex justify-center mb-3">
               <div className="inline-flex items-center rounded-full text-xs font-semibold transition-colors text-foreground px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                Modern Stack
+                {t(language, "tools.badge")}
               </div>
             </div>
             <h2 className="max-w-[640px] mx-auto mb-6 text-4xl lg:text-6xl font-semibold tracking-tight text-[#0f0f0f] dark:text-white">
-              Leverage tools that work for you
+              {t(language, "tools.title")}
             </h2>
           </div>
           <p className="text-[20px] text-[#0f0f0f] dark:text-gray-300 mb-8 max-w-[576px] mx-auto">
-            Learn to work with the leading AI, database, email, payment, design and analytics tools.
+            {t(language, "tools.subtitle")}
           </p>
           
           <div className="block md:hidden mb-12">

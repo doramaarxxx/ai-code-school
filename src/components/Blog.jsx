@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../contexts/LanguageContext'
+import { t } from '../translations/translations'
 import { getAllBlogs } from '../lib/supabase'
 
 const Blog = () => {
+  const { language } = useLanguage()
   const [blogPosts, setBlogPosts] = useState([])
 
   useEffect(() => {
     async function fetchBlogs() {
-      const data = await getAllBlogs(1) // 홈 페이지에는 최신 1개만 표시
+      const data = await getAllBlogs(1, language) // 홈 페이지에는 최신 1개만 표시
       if (data && data.length > 0) {
         setBlogPosts(data)
       } else {
@@ -26,7 +29,7 @@ const Blog = () => {
       }
     }
     fetchBlogs()
-  }, [])
+  }, [language])
 
   const formatDate = (dateString) => {
     if (!dateString) return ''
@@ -42,13 +45,13 @@ const Blog = () => {
       <div className="container max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center rounded-full text-xs font-semibold transition-colors text-foreground px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-            Latest Insights
+            {t(language, "blog.badge")}
           </div>
           <h2 className="max-w-[640px] mx-auto mb-6 text-4xl lg:text-6xl font-semibold tracking-tight text-[#0f0f0f] dark:text-white">
-            Learn from our blog
+            {t(language, "blog.title")}
           </h2>
           <p className="text-[20px] text-[#0f0f0f] dark:text-gray-300 mb-8 max-w-[576px] mx-auto">
-            Insights, tutorials, and best practices from our community of builders
+            {t(language, "blog.subtitle")}
           </p>
         </div>
 
@@ -87,15 +90,15 @@ const Blog = () => {
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <time className="text-sm text-gray-500 dark:text-gray-400">
-                    {formatDate(post.published_date)}
-                  </time>
-                  <Link
-                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium transition-colors"
-                    to={`/blogs/${post.slug}`}
-                  >
-                    Read more →
-                  </Link>
+                      <time className="text-sm text-gray-500 dark:text-gray-400">
+                        {formatDate(post.published_date)}
+                      </time>
+                      <Link
+                        className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium transition-colors"
+                        to={`/blogs/${post.slug}`}
+                      >
+                        {t(language, "blog.readMore")} →
+                      </Link>
                 </div>
               </div>
             </article>
@@ -105,7 +108,7 @@ const Blog = () => {
         <div className="text-center">
           <a href="/blogs">
             <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input hover:bg-accent hover:text-accent-foreground h-11 rounded-md px-8 bg-white dark:bg-gray-800">
-              View all posts
+              {t(language, "blog.viewAll")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
