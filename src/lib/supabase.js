@@ -189,5 +189,23 @@ export const submitCoachingInquiry = async (inquiry) => {
   return { data, error }
 }
 
+// Contact 문의 저장
+export const submitContactInquiry = async (inquiry) => {
+  if (!supabase) {
+    return { error: { message: 'Supabase not initialized' } }
+  }
+  
+  const { data, error } = await supabase
+    .from('contact_inquiries')
+    .insert([inquiry])
+    .select()
+  
+  if (error) {
+    console.error('Error submitting contact inquiry:', error)
+  }
+  
+  return { data, error }
+}
+
 // Supabase 클라이언트 export (null일 수 있음)
 export { supabase }

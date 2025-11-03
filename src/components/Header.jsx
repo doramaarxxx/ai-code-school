@@ -72,14 +72,7 @@ const Header = () => {
             </button>
 
             <div className="hidden md:flex items-center space-x-4">
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 transition-colors"
-                href="https://community.aicodeschool.io"
-              >
-                Community
-              </a>
+              {/* Community button removed */}
             </div>
           </div>
         </div>
@@ -111,14 +104,6 @@ const Header = () => {
                 </Link>
               )
             ))}
-            <a
-              href="https://community.aicodeschool.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-4 py-2 text-base font-medium text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-            >
-              Community
-            </a>
           </div>
         </div>
       )}

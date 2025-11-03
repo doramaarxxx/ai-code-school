@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0 z-0">
         <FluidGradient />
-        <div className="absolute inset-0 bg-[url('/Hyunjun-Park-hero.jpg')] bg-cover bg-center opacity-30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-400 to-purple-500 opacity-40"></div>
       </div>
       
       <div className="absolute bottom-0 left-0 right-0 z-20 w-full p-4 sm:p-6 md:p-8 lg:p-12" style={{ paddingBottom: '2rem' }}>
