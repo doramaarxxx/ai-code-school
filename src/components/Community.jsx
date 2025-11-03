@@ -78,17 +78,6 @@ const Community = () => {
             ))}
           </div>
         </div>
-
-        <div className="flex justify-center mt-12">
-          <div className="relative w-[350px] h-[350px] md:w-[600px] md:h-[600px]">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-lg opacity-20"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-gray-600 dark:text-gray-400 text-center px-4">
-                Network visualization showing connected nodes
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
